@@ -21,7 +21,30 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
 
+
+  var currentTimeHour = dayjs().format('H') //pulls the current hour 
+  const workHours =[9,10,11,12,13,14,15,16,17] //hours of the usual work days
+  
+  for (let index = 0 ; index < workHours.length; index++) { //set colors od boxes depending on time of day
+    console.log(workHours[index])
+    if (currentTimeHour == workHours[index]){ // if the current time is equal to the work hour show present 
+      $("#hour-" + workHours[index])
+        .addClass('present');
+    }
+    else if (currentTimeHour > workHours[index]){ //if the current time is more than the work hour show past 
+      $("#hour-" + workHours[index])
+        .addClass('past');
+    }
+    else if (currentTimeHour < workHours[index]){ //if the current time is less than the work hour show future 
+      $("#hour-" + workHours[index])
+        .addClass('future');
+    }
+    
+  }
+
+  })
+  
   //Display the current date in the header of the page.
-  var currentDay = $("#currentDay")
+  var currentDay = $("#currentDay");
   currentDay.text(dayjs().format('dddd, MMMM D, YYYY h:mm A'));
-});
+
