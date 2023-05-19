@@ -1,7 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
 $(function () {
   var currentTimeHour = dayjs().format('H') //pulls the current hour 
   const workHours =[9,10,11,12,13,14,15,16,17] //hours of the usual work days
@@ -55,7 +51,18 @@ $(function () {
       $("#hour-" + workHours[index])
         .addClass('future');
     }
+    else if (currentTimeHour < 9 ){ //once it hits midnight the schedule colors will be prepped for new day 
+      $("#hour-" + workHours[index])
+        .addClass('future');
+    }
   }
 
+
+  $('.clear').on('click', function() { //if user wanted to clear the schedule text boxes and local storage 
+    for (let index = 0; index < schedulingNotesStored.length; index++) { 
+      $(`#hour-${workHours[index]}`).children().eq(1).text("")
+      localStorage.setItem(`hour-${workHours[index]}`, "") 
+    }
+  })
   })
 
